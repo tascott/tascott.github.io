@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Projects from "./pages/Projects";
 import ProjectsList from "./pages/ProjectsList";
-import Project from "./pages/Project";
+import Project from "./pages/ProjectPage";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {

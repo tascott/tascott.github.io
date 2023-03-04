@@ -7,7 +7,7 @@ function Project(props) {
   const project = projectslist[slug];
   const { title, description } = project;
   return (
-    <div className="projects-page">
+    <div className="project">
       <div style={{ padding: 20 }}>
         <h3>{title}</h3>
         <p>{description}</p>
