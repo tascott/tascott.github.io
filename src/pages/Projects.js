@@ -1,17 +1,13 @@
 import React from "react";
-import ProjectCard from "../components/ProjectCard";
-import projects from "../projects.json";
+import { Outlet } from "react-router-dom";
 
-function Project() {
+function Projects() {
   return (
-    <div className="projects-page">
+    <div style={{ padding: 20 }}>
       <h2>Projects</h2>
-      <h3>Project Cards</h3>
-      <div className="projects-container">
-        {projects.map((project) => (<ProjectCard project={project} key={project.id.toString()} />))}
-        </div>
+      <Outlet />
     </div>
   );
 }
 
-export default Project;
+export default Projects;
