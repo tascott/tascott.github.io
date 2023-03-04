@@ -3,7 +3,7 @@
       "id": 1,
       "name": "Project 1",
       "description": "Desc",
-      "image": "placehold.it/200x200",
+      "image": "https://placehold.it/200x200",
       "repo": "",
       "url": ""
     },
@@ -11,7 +11,7 @@
       "id": 2,
       "name": "Project 2",
       "description": "Desc",
-      "image": "placehold.it/200x200",
+      "image": "https://placehold.it/200x200",
       "repo": "",
       "url": ""
     },
@@ -19,7 +19,7 @@
       "id": 3,
       "name": "Project 3",
       "description": "Desc",
-      "image": "placehold.it/200x200",
+      "image": "https://placehold.it/200x200",
       "repo": "",
       "url": ""
     },
@@ -27,7 +27,7 @@
       "id": 4,
       "name": "Project 4",
       "description": "Desc",
-      "image": "placehold.it/200x200",
+      "image": "https://placehold.it/200x200",
       "repo": "",
       "url": ""
     },
@@ -35,7 +35,7 @@
       "id": 5,
       "name": "Project 5",
       "description": "Desc",
-      "image": "placehold.it/200x200",
+      "image": "https://placehold.it/200x200",
       "repo": "",
       "url": ""
     },
@@ -43,7 +43,7 @@
       "id": 6,
       "name": "Project 6",
       "description": "Desc",
-      "image": "placehold.it/200x200",
+      "image": "https://placehold.it/200x200",
       "repo": "",
       "url": ""
     }

@@ -1,15 +1,24 @@
 import React from "react";
+import "./style.css";
 
-function ProjectCard() {
-    // todo: use props to pass in the project data
+function ProjectCard(props) {
   return (
-    <div>
-          <h2>ProjectCard</h2>
-          <h3>Title</h3>
-          <h3>Image</h3>
-          <h3>Description</h3>
-          <h3>Link to deployed version</h3>
-            <h3>Link to GitHub repo</h3>
+    <div className="project" key={props.project.id}>
+      <h3>{props.project.name}</h3>
+      <img src={props.project.image} alt="project"></img>
+      <div className="project-text">
+        <h3>{props.project.description}</h3>
+        <p>
+          <a href={props.project.url} target="_blank" rel="noreferrer">
+            Link to deployed version
+          </a>
+        </p>
+        <p>
+          <a href={props.project.repo} target="_blank" rel="noreferrer">
+            Link to GitHub repo
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

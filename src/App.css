@@ -1,3 +1,13 @@
 .App {
   text-align: center;
 }
+
+.projects-container {
+  display: flex;
+  border: 2px solid red;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
