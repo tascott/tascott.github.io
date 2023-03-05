@@ -24,7 +24,7 @@ To install necessary dependencies, run the following command:
 You can use this application by running `node index.js`.
 
 ## Screenshot
-<img width="580" alt="Screenshot 2023-02-18 at 17 26 07" src="https://user-images.githubusercontent.com/18272434/222992825-953dfc27-96c1-46b8-b3ad-6e84fd301906.png">
+<img width="380" alt="Screenshot 2023-02-18 at 17 26 07" src="https://user-images.githubusercontent.com/18272434/222992825-953dfc27-96c1-46b8-b3ad-6e84fd301906.png">
 
 ## Contributions
 N/A
