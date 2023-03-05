@@ -4,8 +4,7 @@ import './style.css';
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div>
+    <nav className="navbar navbar-expand-lg navbar-light">
         <ul className="navbar-nav">
           <li className="nav-item">
             <NavLink
@@ -41,7 +40,6 @@ function Navbar() {
             </NavLink>
           </li>
         </ul>
-      </div>
     </nav>
   );
 }

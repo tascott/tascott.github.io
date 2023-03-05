@@ -4,11 +4,9 @@ import "./style.css";
 
 function Header() {
   return (
-    <>
-      <header className="header">
-        <Navbar />
-      </header>
-    </>
+    <header className="header">
+      <Navbar />
+    </header>
   );
 }
 

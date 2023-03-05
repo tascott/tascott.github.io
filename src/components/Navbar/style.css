@@ -1,3 +1,11 @@
-nav.navbar.navbar-default {
-  margin-bottom: 0;
+nav.navbar {
+  flex-direction: column;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+nav ul.navbar-nav {
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
 }
