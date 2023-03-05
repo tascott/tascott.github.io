@@ -10,32 +10,32 @@ import { DiJsBadge } from "react-icons/di";
 function Home() {
   return (
     <div className="home">
-    <div id="bio">
-      <h1>Hi, I'm Tom</h1>
-      <img src={bioImage} alt="Thomas Scott" />
-      <h3>Javascript Developer</h3>
-      <h5>With over 5 years experience building ... things™</h5>
-      <div className="icons">
-        <span className="icon js">
-          <DiJsBadge />
-        </span>
-        <span className="icon html">
-          <DiHtml5 />
-        </span>
-        <span className="icon css">
-          <DiCss3 />
-        </span>
-        <span className="icon bootstrap">
-          <DiBootstrap />
-        </span>
-        <span className="icon react">
-          <DiReact />
-        </span>
-        <span className="icon node">
-          <DiNodejsSmall />
-        </span>
+      <div id="bio">
+        <h1>Hi, I'm Tom</h1>
+        <img src={bioImage} alt="Thomas Scott" />
+        <h3>Javascript Developer</h3>
+        <h5>With over 5 years experience building ... things™</h5>
+        <div className="icons">
+          <span className="icon js">
+            <DiJsBadge />
+          </span>
+          <span className="icon html">
+            <DiHtml5 />
+          </span>
+          <span className="icon css">
+            <DiCss3 />
+          </span>
+          <span className="icon bootstrap">
+            <DiBootstrap />
+          </span>
+          <span className="icon react">
+            <DiReact />
+          </span>
+          <span className="icon node">
+            <DiNodejsSmall />
+          </span>
         </div>
-        </div>
+      </div>
     </div>
   );
 }

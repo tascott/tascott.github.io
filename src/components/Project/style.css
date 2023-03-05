@@ -1,10 +1,57 @@
 .project {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     transition: all 0.3s;
+}
+
+.project-sole {
+    flex-direction: column;
+}
+
+.project img {
+    max-width: 200px;
+}
+
+.project-sole img {
+    max-width: 400px;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 860px) {
+    .project-sole img {
+        max-width: 90%;
+    }
+}
+
+.project-outer {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    transition: all 0.3s;
+}
+
+.project-text {
+    padding: 20px;
+}
+
+.project-text .bio-link {
+    padding: 0 25px 0px 0px;
+}
+
+.project:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.project-sole:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.project h3 {
+    font-family: 'DM Serif Display', serif;
 }

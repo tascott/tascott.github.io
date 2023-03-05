@@ -14,7 +14,7 @@
 }
 
 .projects-list-container {
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .project-details {
@@ -56,6 +56,10 @@
     /* grid columns 2 and 3 */
     grid-column: 1 / 2;
   }
+
+  .project-outer .project {
+    flex-direction: column;
+  }
 }
 
 #bio {
@@ -67,8 +71,13 @@
   height: 100%;
 }
 
-#bio h5 {
-font-family: 'DM Serif Display', serif;
+#bio h1 {
+  margin-bottom: 30px;
+}
+
+#bio h5, .page-header {
+  font-family: 'DM Serif Display', serif;
+  text-align: center;
 }
 
 #bio img {
@@ -81,6 +90,12 @@ font-family: 'DM Serif Display', serif;
 
 #bio h3 {
   padding: 20px 0;
+}
+
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .icons .icon {
