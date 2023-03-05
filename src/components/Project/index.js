@@ -4,14 +4,16 @@ import "./style.css";
 function Project(props) {
   return (
     <div className="project">
-      <div style={{ padding: 20 }}>
+      <img src={props.image} alt="project"></img>
+      <div className="project-text">
         <h3>{props.title}</h3>
-        <img src={props.image} alt="project"></img>
-        <div className="project-text">
-          <h3>{props.description}</h3>
-          <h4>{props.repo}</h4>
-          <h4>{props.url}</h4>
-          </div>
+        <p>{props.description}</p>
+        <a className="bio-link" href={props.repo} target="_blank" rel="noreferrer">
+          Github Repository
+        </a>
+        <a className="bio-link" href={props.url} target="_blank" rel="noreferrer">
+          Live Application
+        </a>
       </div>
     </div>
   );

@@ -6,10 +6,10 @@ import Project from "../components/Project";
 
 function ProjectsList(props) {
   return (
-    <div>
+    <div className="project-details">
       {Object.entries(projectslist).map(
         ([slug, { title, description, image, repo, url }]) => (
-          <div key={slug}>
+          <div className="project-outer" key={slug}>
             <Project
               title={title}
               description={description}
@@ -18,7 +18,7 @@ function ProjectsList(props) {
               url={url}
             />
             <Link to={`/projects/${slug}`}>
-              <h5>See more</h5>
+              <h5 className="text-center">See more</h5>
             </Link>
           </div>
         )

@@ -1,50 +1,50 @@
 {
   "1": {
     "id": 1,
-    "title": "Project 1",
-    "description": "A project that does....",
-    "image": "https://placehold.it/200x200",
-    "repo": "",
-    "url": ""
+    "title": "Commute Things",
+    "description": "CommuteThings is a web application for commuters who wish to find media content to occupy themselves with for the length of their journey.",
+    "image": "https://user-images.githubusercontent.com/18272434/217798917-1be756ba-e694-4538-8b07-77e0b8d6ee98.png",
+    "repo": "https://github.com/tascott/commute-me-2",
+    "url": "https://tascott.github.io/commute-me-2/"
   },
   "2": {
     "id": 2,
-    "title": "Project 2",
-    "description": "A project that does....",
-    "image": "https://placehold.it/200x200",
-    "repo": "",
+    "title": "Profile Generator",
+    "description": "Command line node.js program for managers to add employees to their team and generate a html page with all their information.",
+    "image": "https://user-images.githubusercontent.com/18272434/221439507-923e94f2-b624-462a-b3a6-3bb50a7b171a.png",
+    "repo": "https://github.com/tascott/TDD-Profile-Generator",
     "url": ""
   },
   "3": {
     "id": 3,
-    "title": "Project 3",
-    "description": "A project that does....",
-    "image": "https://placehold.it/200x200",
-    "repo": "",
-    "url": ""
+    "title": "Weather Dashboard",
+    "description": "This application takes a user-inputted city and displays the current weather, and the forecast for the next 5 days. The users search history is shown below the search box.",
+    "image": "https://user-images.githubusercontent.com/18272434/215295133-2e20cfca-89ae-4928-8db3-5e46b29a24eb.png",
+    "repo": "https://github.com/tascott/Weather-Dashboard",
+    "url": "https://tascott.github.io/Weather-Dashboard"
   },
   "4":{
     "id": 4,
-    "title": "Project 4",
-    "description": "A project that does....",
-    "image": "https://placehold.it/200x200",
-    "repo": "",
-    "url": ""
+    "title": "Daily Planner",
+    "description": "This application shows twenty four 1 hour time blocks to help you organise your day. The current day is shown at the top, the current hour is highlighted green. Previous hours are red and future hours blue.",
+    "image": "https://user-images.githubusercontent.com/18272434/214101423-a5eee153-92a4-490f-8d81-75c8fe37d6b0.png",
+    "repo": "https://github.com/tascott/daily-planner",
+    "url": "https://tascott.github.io/daily-planner/"
   },
   "5":{
     "id": 5,
-    "title": "Project 5",
-    "description": "A project that does....",
-    "image": "https://placehold.it/200x200",
-    "repo": "",
-    "url": ""
+    "title": "Password Generator",
+    "description": "A single page that takes some parameters from the user to generate a password of minimum length of 10 characters and maximum length of 64.",
+    "image": "https://user-images.githubusercontent.com/18272434/211406847-0e729137-7046-4fe4-b2c9-d480a89d6b1f.png",
+    "repo": "https://github.com/tascott/password-generator",
+    "url": "https://tascott.github.io/password-generator/"
   },
   "6":{
     "id": 6,
-    "title": "Project 6",
-    "description": "Desc",
-    "image": "https://placehold.it/200x200",
-    "repo": "",
-    "url": ""
+    "title": "JS Quiz",
+    "description": "This application takes some pre-written questions (and answers) and displays them one by one to the user. See your score at the end.",
+    "image": "https://user-images.githubusercontent.com/18272434/212564525-37698e11-88f9-46c9-a58b-ed968de2a65e.png",
+    "repo": "https://github.com/tascott/code-quiz-wep-apis",
+    "url": "https://tascott.github.io/code-quiz-wep-apis/index.html"
   }
 }
