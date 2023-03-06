@@ -5,7 +5,9 @@ import { DiCss3 } from "react-icons/di";
 import { DiHtml5 } from "react-icons/di";
 import { DiNodejsSmall } from "react-icons/di";
 import { DiReact } from "react-icons/di";
-import { DiJsBadge } from "react-icons/di";
+import { SiJavascript } from "react-icons/si";
+import { DiSass } from "react-icons/di";
+import { SiJest } from "react-icons/si";
 
 function Home() {
   return (
@@ -17,13 +19,16 @@ function Home() {
         <h5>With over 5 years experience building ... things™</h5>
         <div className="icons">
           <span className="icon js">
-            <DiJsBadge />
+            <SiJavascript />
           </span>
           <span className="icon html">
             <DiHtml5 />
           </span>
           <span className="icon css">
             <DiCss3 />
+          </span>
+          <span className="icon sass">
+            <DiSass />
           </span>
           <span className="icon bootstrap">
             <DiBootstrap />
@@ -33,6 +38,9 @@ function Home() {
           </span>
           <span className="icon node">
             <DiNodejsSmall />
+          </span>
+          <span className="icon jest">
+            <SiJest />
           </span>
         </div>
       </div>

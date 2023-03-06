@@ -96,11 +96,19 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 
 .icons .icon {
   margin: 0 0.5rem;
   font-size: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icons .icon.jest, .icons .icon.js {
+  font-size: 65px;
 }
 
 .home {
