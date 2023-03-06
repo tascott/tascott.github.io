@@ -47,3 +47,8 @@
 .contact-btn {
   margin: 10px 0;
 }
+
+button.form-control.submit-success {
+  background-color: #4CAF50;
+  color: white;
+}
