@@ -1,1 +1,219 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/tascott.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/tascott.github.io/logo192.png"/><link rel="manifest" href="/tascott.github.io/manifest.json"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet"><title>React App</title><script defer="defer" src="/tascott.github.io/static/js/main.18b51b6a.js"></script><link href="/tascott.github.io/static/css/main.f84d7749.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend Developer Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="textBG.css">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="bg-code">
+  <header class="header">
+    <div id="theme-switcher">
+      <div id="bg-code" class="bg-btn active" onclick="changeBackground(5)"></div>
+      <div id="bg1" class="bg-btn" onclick="changeBackground(1)"></div>
+    </div>
+    <div class="nav-links">
+      <a onclick="showPanel(0)">Home</a>
+      <a onclick="showPanel(1)">Projects</a>
+      <a onclick="showPanel(2)">Contact</a>
+    </div>
+  </header>
+
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="showPanel(0)"></div>
+    <div class="nav-dot" onclick="showPanel(1)"></div>
+    <div class="nav-dot" onclick="showPanel(2)"></div>
+  </div>
+
+  <div class="panel-indicators">
+    <div class="panel-indicator active" onclick="showPanel(0)"></div>
+    <div class="panel-indicator" onclick="showPanel(1)"></div>
+    <div class="panel-indicator" onclick="showPanel(2)"></div>
+  </div>
+
+  <!-- Home Panel -->
+  <section id="panel-0" class="panel active">
+    <h1 class="name-title">Tom Scott</h1>
+    <div class="role">Frontend Developer</div>
+    <p class="short-bio">
+      I build exceptional and accessible digital experiences for the web.
+      Specializing in creating engaging interfaces with modern JavaScript frameworks
+      and a keen eye for design and user experience.
+    </p>
+
+    <div class="tech-icons">
+      <div class="tech-icon js" title="JavaScript">
+        <i class="fab fa-js"></i>
+      </div>
+      <div class="tech-icon typescript" title="TypeScript">
+        <img src="icons/typescript.svg" alt="TypeScript" width="32" height="32">
+      </div>
+      <div class="tech-icon react" title="React">
+        <i class="fab fa-react"></i>
+      </div>
+      <div class="tech-icon html" title="HTML5">
+        <i class="fab fa-html5"></i>
+      </div>
+      <div class="tech-icon css" title="CSS3">
+        <i class="fab fa-css3-alt"></i>
+      </div>
+      <div class="tech-icon sass" title="Sass">
+        <i class="fab fa-sass"></i>
+      </div>
+      <div class="tech-icon git" title="Git">
+        <i class="fab fa-git-alt"></i>
+      </div>
+      <div class="tech-icon node" title="Node.js">
+        <i class="fab fa-node-js"></i>
+      </div>
+    </div>
+    <div class="tech-icons">
+      <div class="tech-icon postgres" title="PostgreSQL">
+        <i class="fas fa-database"></i>
+      </div>
+      <div class="tech-icon tableau" title="Tableau">
+        <img src="icons/tableau.svg" alt="Tableau" width="32" height="32">
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Panel -->
+  <section id="panel-1" class="panel">
+    <h2 class="panel-title">Featured Projects</h2>
+    <div class="projects-filter">
+      <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+      <button class="filter-btn" onclick="filterProjects('web-apps')">Web Apps</button>
+      <button class="filter-btn" onclick="filterProjects('client')">Client Sites</button>
+      <button class="filter-btn" onclick="filterProjects('data')">Data Projects</button>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Project Card 1 -->
+      <div class="project-card" data-category="web-apps">
+        <div class="project-media">
+          <img src="https://placehold.co/600x400" alt="Peloton Wrapped">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Peloton Wrapped</h3>
+          <p class="project-desc">
+            Fetching data from pelo
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Supabase</span>
+            <span class="tech-tag">SASS</span>
+          </div>
+          <div class="project-links">
+            <a href="#">View Project</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Card 2 -->
+      <div class="project-card" data-category="web-apps">
+        <div class="project-media">
+          <img src="https://placehold.co/600x400" alt="Calendar">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Calendar</h3>
+          <p class="project-desc">
+            A personal project to keep my days on track
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">API</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">HTML5</span>
+          </div>
+          <div class="project-links">
+            <a href="#">View Project</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Card 3 -->
+      <div class="project-card" data-category="client">
+        <div class="project-media">
+          <img src="https://placehold.co/600x400" alt="Personal Dog Care Website">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">A Walk On The Wildside</h3>
+          <p class="project-desc">
+            Wordpress site for a local dog care business
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">WordPress</span>
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">jQuery</span>
+            <span class="tech-tag">SASS</span>
+          </div>
+          <div class="project-links">
+            <a href="#">View Project</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Card 4 -->
+      <div class="project-card" data-category="data">
+        <div class="project-media">
+          <img src="https://placehold.co/600x400" alt="Peloton Rides Analytics">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Peloton Rides Analytics</h3>
+          <p class="project-desc">
+            Part of General Assembly Data Analytics Short Course
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">D3.js</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">CSS Grid</span>
+          </div>
+          <div class="project-links">
+            <a href="#">View Project</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Panel -->
+  <section id="panel-2" class="panel">
+    <h2 class="contact-heading">Get In Touch</h2>
+    <p class="contact-text">
+      I'm currently available for freelance work and full-time opportunities.
+      If you're interested in working together or have any questions, please feel free to reach out.
+    </p>
+
+    <div class="contact-details">
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Based in</h3>
+        <p style="opacity: 0.7;">London, UK</p>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Current Status</h3>
+        <p style="opacity: 0.7;">Open to full-time opportunities and select freelance projects</p>
+      </div>
+    </div>
+
+    <div class="contact-links">
+      <a href="mailto:contact@tascott.co.uk" class="contact-link">contact@tascott.co.uk</a>
+      <a href="https://github.com/tascott" target="_blank" rel="noopener" class="contact-link">GitHub</a>
+      <a href="https://www.linkedin.com/in/tascott/" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="https://x.com/tommacode" target="_blank" class="contact-link">Twitter/X</a>
+    </div>
+  </section>
+  <script src="index.js"></script>
+</body>
+
+</html>

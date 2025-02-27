@@ -1,0 +1,55 @@
+#theme-switcher {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#switcher-label {
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.bg-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin: 0.25rem 0;
+}
+
+.bg-btn:hover {
+    transform: scale(1.1);
+}
+
+.bg-btn.active {
+    border-color: #fff;
+    transform: scale(1.15);
+}
+
+#bg1, body.bg-style-1 {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background-size: 200% 200%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#bg-code {
+    background: linear-gradient(45deg, #111, #333);
+}
