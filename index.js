@@ -1,3 +1,5 @@
+const totalPanels = 3;
+
 
 // Show panel function
 function showPanel(index) {
@@ -28,6 +30,73 @@ function showPanel(index) {
     currentPanelIndex = index;
 }
 
+// Pagination variables
+let currentPage = 1;
+const projectsPerPage = 4;
+
+// Update pagination display
+function updatePagination() {
+    // Get all visible project cards (not filtered out)
+    const projectCards = Array.from(document.querySelectorAll('.project-card')).filter(card => 
+        getComputedStyle(card).display !== 'none'
+    );
+
+    console.log('Visible project cards:', projectCards.length);
+    
+    const totalPages = Math.ceil(projectCards.length / projectsPerPage);
+    
+    // Ensure current page stays within bounds
+    if (currentPage > totalPages) {
+        currentPage = totalPages || 1;
+    }
+    
+    document.querySelector('.current-page').textContent = currentPage;
+    document.querySelector('.total-pages').textContent = totalPages;
+    
+    // Enable/disable pagination buttons
+    document.getElementById('prev-page').disabled = currentPage <= 1;
+    document.getElementById('next-page').disabled = currentPage >= totalPages;
+    
+    // Show/hide projects based on current page
+    projectCards.forEach((card, index) => {
+        const shouldShow = index >= (currentPage - 1) * projectsPerPage && index < currentPage * projectsPerPage;
+        card.style.display = shouldShow ? 'block' : 'none';
+    });
+    
+    console.log(`Current page: ${currentPage}, Total pages: ${totalPages}, Visible cards: ${projectCards.length}`);
+}
+
+// Get visible cards for pagination
+function getVisibleCards() {
+    return Array.from(document.querySelectorAll('.project-card')).filter(card => 
+        !card.hasAttribute('data-filtered-out')
+    );
+}
+
+// Update pagination display
+function updatePagination() {
+    const availableCards = getVisibleCards();
+    const totalPages = Math.ceil(availableCards.length / projectsPerPage);
+    
+    // Ensure current page stays within bounds
+    currentPage = Math.min(Math.max(1, currentPage), totalPages);
+    
+    document.querySelector('.current-page').textContent = currentPage;
+    document.querySelector('.total-pages').textContent = totalPages;
+    
+    // Enable/disable pagination buttons
+    document.getElementById('prev-page').disabled = currentPage <= 1;
+    document.getElementById('next-page').disabled = currentPage >= totalPages;
+    
+    // Show/hide projects based on current page
+    availableCards.forEach((card, index) => {
+        const shouldShow = index >= (currentPage - 1) * projectsPerPage && index < currentPage * projectsPerPage;
+        card.style.display = shouldShow ? 'block' : 'none';
+    });
+    
+    console.log(`Page ${currentPage}/${totalPages} - Showing cards ${(currentPage-1)*projectsPerPage + 1} to ${Math.min(currentPage*projectsPerPage, availableCards.length)} of ${availableCards.length}`);
+}
+
 // Project filtering function
 function filterProjects(category) {
     const projectCards = document.querySelectorAll('.project-card');
@@ -46,14 +115,22 @@ function filterProjects(category) {
         }
     });
 
-    // Filter projects
+    // Reset to first page when filtering
+    currentPage = 1;
+    
+    // Mark cards as filtered or not
     projectCards.forEach(card => {
         if(category === 'all' || card.dataset.category === category) {
-            card.style.display = 'block';
+            card.removeAttribute('data-filtered-out');
         } else {
+            card.setAttribute('data-filtered-out', '');
             card.style.display = 'none';
         }
     });
+    
+    // Reset to page 1 and update pagination
+    currentPage = 1;
+    updatePagination();
 }
 
 // Background Switcher Function
@@ -101,6 +178,24 @@ window.addEventListener('wheel',function(e) {
 },{passive: true});
 
 // Keyboard navigation
+// Initialize pagination
+document.addEventListener('DOMContentLoaded', function() {
+    updatePagination();
+    
+    // Add pagination button event listeners
+    document.getElementById('prev-page').addEventListener('click', () => {
+        console.log('Previous clicked');
+        currentPage--;
+        updatePagination();
+    });
+    
+    document.getElementById('next-page').addEventListener('click', () => {
+        console.log('Next clicked');
+        currentPage++;
+        updatePagination();
+    });
+});
+
 document.addEventListener('keydown',function(e) {
     // Navigate based on key pressed
     if(e.key === 'ArrowRight' || e.key === 'ArrowDown') {

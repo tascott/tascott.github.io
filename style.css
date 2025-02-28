@@ -262,6 +262,44 @@
 .tech-icon.postgres { color: #336791; }
 .tech-icon.tableau { color: #1f77b4; }
 
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f0f0f0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
 .tech-icon img {
     width: 32px;
     height: 32px;
