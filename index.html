@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frontend Developer Portfolio</title>
+  <title>Tom Scott</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="textBG.css">
   <link rel="stylesheet" href="switcher.css">
@@ -114,7 +114,9 @@
       
       <div class="filter-group tech">
         <span class="filter-label">Tech:</span>
-        <div class="filter-buttons">
+        <div class="filter-buttons desktop-only">
+          <!-- Desktop buttons -->
+
           <button class="filter-btn" data-type="tech" data-value="React"><i class="fab fa-react"></i>React</button>
           <button class="filter-btn" data-type="tech" data-value="JavaScript"><i class="fab fa-js"></i>JavaScript</button>
           <button class="filter-btn" data-type="tech" data-value="TypeScript"><i class="fab fa-js"></i>TypeScript</button>
@@ -127,9 +129,25 @@
           <button class="filter-btn" data-type="tech" data-value="PostgreSQL"><i class="fas fa-database"></i>PostgreSQL</button>
           <button class="filter-btn" data-type="tech" data-value="SQLite"><i class="fas fa-database"></i>SQLite</button>
         </div>
+        <!-- Mobile dropdown -->
+        <div class="filter-dropdown mobile-only">
+          <select multiple class="tech-select" aria-label="Select technologies">
+            <option value="React">React</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="Next.js">Next.js</option>
+            <option value="Node.js">Node.js</option>
+            <option value="Python">Python</option>
+            <option value="WordPress">WordPress</option>
+            <option value="OpenAI">OpenAI</option>
+            <option value="Supabase">Supabase</option>
+            <option value="PostgreSQL">PostgreSQL</option>
+            <option value="SQLite">SQLite</option>
+          </select>
+        </div>
       </div>
     </div>
-    <span style="padding-bottom:0.7rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">Click for more</span>
+    <span style="padding-bottom:0.7rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">Click for details</span>
     <div class="projects-grid" id="projects-container">
       <!-- Project Cards will be dynamically populated by JavaScript -->
     </div>

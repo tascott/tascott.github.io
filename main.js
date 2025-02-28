@@ -9,6 +9,21 @@ const activeFilters = {
 
 // Initialize modal and projects when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Handle tech select dropdown
+    const techSelect = document.querySelector('.tech-select');
+    if (techSelect) {
+        techSelect.addEventListener('change', (e) => {
+            // Clear existing tech filters
+            activeFilters.tech = [];
+            
+            // Add selected options to filters
+            Array.from(e.target.selectedOptions).forEach(option => {
+                activeFilters.tech.push(option.value);
+            });
+            
+            renderProjects();
+        });
+    }
     const modal = new ProjectModal();
     const projectsContainer = document.getElementById('projects-container');
 
