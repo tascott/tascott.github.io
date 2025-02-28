@@ -48,12 +48,13 @@ class ProjectModal {
             }
         });
 
-        // Prevent scrolling when modal is open
+        // Handle modal content scrolling
         this.modal.addEventListener('wheel', (e) => {
-            if (!e.target.closest('.modal-content')) {
-                e.preventDefault();
+            const modalContent = e.target.closest('.modal-content');
+            if (!modalContent) {
+                e.stopPropagation();
             }
-        });
+        }, { passive: true });
     }
 
     open(projectData) {

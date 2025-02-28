@@ -1,5 +1,6 @@
 const totalPanels = 3;
 
+export { showPanel };
 
 // Show panel function
 function showPanel(index) {
@@ -43,33 +44,7 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Update pagination display
-function updatePagination() {
-    // Get all visible project cards (not filtered out)
-    const projectCards = Array.from(document.querySelectorAll('.project-card')).filter(card => 
-        getComputedStyle(card).display !== 'none'
-    );
-    
-    const totalPages = Math.ceil(projectCards.length / projectsPerPage);
-    
-    // Ensure current page stays within bounds
-    if (currentPage > totalPages) {
-        currentPage = totalPages || 1;
-    }
-    
-    document.querySelector('.current-page').textContent = currentPage;
-    document.querySelector('.total-pages').textContent = totalPages;
-    
-    // Enable/disable pagination buttons
-    document.getElementById('prev-page').disabled = currentPage <= 1;
-    document.getElementById('next-page').disabled = currentPage >= totalPages;
-    
-    // Show/hide projects based on current page
-    projectCards.forEach((card, index) => {
-        const shouldShow = index >= (currentPage - 1) * projectsPerPage && index < currentPage * projectsPerPage;
-        card.style.display = shouldShow ? 'block' : 'none';
-    });
-}
+
 
 // Get visible cards for pagination
 function getVisibleCards() {
@@ -100,34 +75,69 @@ function updatePagination() {
     });
 }
 
-// Project filtering function
-function filterProjects(category) {
-    const projectCards = document.querySelectorAll('.project-card');
-    const filterButtons = document.querySelectorAll('.filter-btn');
+// Track active filters
+const activeFilters = {
+    category: 'all',
+    tech: new Set()
+};
 
-    // Update active button
-    filterButtons.forEach(button => {
-        button.classList.remove('active');
-        if(
-            (category === 'all' && button.textContent.trim() === 'All') ||
-            (category === 'web-apps' && button.textContent.trim() === 'Web Applications') ||
-            (category === 'client' && button.textContent.trim() === 'Client Websites') ||
-            (category === 'data' && button.textContent.trim() === 'Data Projects')
-        ) {
-            button.classList.add('active');
-        }
-    });
-
-    // Reset to first page when filtering
-    currentPage = 1;
+// Handle filter button clicks
+document.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('filter-btn')) return;
     
-    // Mark cards as filtered or not
-    projectCards.forEach(card => {
-        if(category === 'all' || card.dataset.category === category) {
-            card.removeAttribute('data-filtered-out');
+    const type = e.target.getAttribute('data-type');
+    const value = e.target.getAttribute('data-value');
+    
+    if (!type || !value) return;
+    
+    // Handle category filters
+    if (type === 'category') {
+        // Remove active class from all category buttons
+        document.querySelectorAll('[data-type="category"]').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        activeFilters.category = value;
+    }
+    
+    // Handle tech filters
+    if (type === 'tech') {
+        e.target.classList.toggle('active');
+        if (e.target.classList.contains('active')) {
+            activeFilters.tech.add(value);
         } else {
-            card.setAttribute('data-filtered-out', '');
-            card.style.display = 'none';
+            activeFilters.tech.delete(value);
+        }
+    }
+    
+    applyFilters();
+});
+
+// Apply all active filters
+function applyFilters() {
+    const projects = document.querySelectorAll('.project-card');
+    
+    projects.forEach(project => {
+        const projectCategory = project.getAttribute('data-category');
+        const projectTechs = Array.from(project.querySelectorAll('.tech-tag'))
+            .map(tag => tag.textContent.trim());
+        
+        // Check if project matches category filter
+        const matchesCategory = activeFilters.category === 'all' || 
+            projectCategory === activeFilters.category;
+        
+        // Check if project matches all selected tech filters
+        const matchesTech = activeFilters.tech.size === 0 || 
+            Array.from(activeFilters.tech).every(tech => 
+                projectTechs.includes(tech)
+            );
+        
+        // Show project only if it matches both filters
+        if (matchesCategory && matchesTech) {
+            project.removeAttribute('data-filtered-out');
+        } else {
+            project.setAttribute('data-filtered-out', '');
+            project.style.display = 'none';
         }
     });
     
@@ -136,25 +146,31 @@ function filterProjects(category) {
     updatePagination();
 }
 
-// Background Switcher Function
-function changeBackground(bgIndex) {
-    // Clear all classes from body
-    document.body.className = '';
+// Initialize background switcher
+document.addEventListener('DOMContentLoaded', () => {
+    // Add click handlers to background buttons
+    document.querySelectorAll('.bg-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const bgIndex = parseInt(button.getAttribute('data-bg-index'));
+            
+            // Clear all classes from body
+            document.body.className = '';
 
-    // Remove active class from all buttons
-    const allButtons = document.querySelectorAll('.bg-btn');
-    allButtons.forEach(button => button.classList.remove('active'));
+            // Remove active class from all buttons
+            document.querySelectorAll('.bg-btn').forEach(btn => btn.classList.remove('active'));
 
-    if(bgIndex === 5) {
-        // Handle code background
-        document.body.classList.add('bg-code');
-        document.getElementById('bg-code').classList.add('active');
-    } else {
-        // Handle numbered backgrounds
-        document.body.classList.add('bg-style-' + bgIndex);
-        document.getElementById('bg' + bgIndex).classList.add('active');
-    }
-}
+            if(bgIndex === 5) {
+                // Handle code background
+                document.body.classList.add('bg-code');
+                button.classList.add('active');
+            } else {
+                // Handle numbered backgrounds
+                document.body.classList.add('bg-style-' + bgIndex);
+                button.classList.add('active');
+            }
+        });
+    });
+});
 
 // Declare current panel index
 let currentPanelIndex = 0;
@@ -180,9 +196,17 @@ window.addEventListener('wheel',function(e) {
     }
 },{passive: true});
 
-// Keyboard navigation
-// Initialize pagination
+// Initialize navigation and pagination
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize panel navigation
+    document.querySelectorAll('[data-panel]').forEach(element => {
+        element.addEventListener('click', () => {
+            const panelIndex = parseInt(element.getAttribute('data-panel'));
+            showPanel(panelIndex);
+        });
+    });
+
+    // Initialize pagination
     updatePagination();
     
     // Add pagination button event listeners

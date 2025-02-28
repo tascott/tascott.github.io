@@ -3,7 +3,7 @@
     flex-direction: row;
     gap: 0.8rem;
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 0.7rem;
+    padding: 0.4rem 0.7rem;
     border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -19,8 +19,8 @@
 }
 
 .bg-btn {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid transparent;

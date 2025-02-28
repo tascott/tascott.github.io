@@ -44,7 +44,6 @@
      .header {
          top: 1rem;
          padding: 0 1rem;
-         background: rgba(17, 17, 17, 0.8);
          backdrop-filter: blur(10px);
          -webkit-backdrop-filter: blur(10px);
      }
@@ -261,6 +260,9 @@
 .tech-icon.git { color: #f05032; }
 .tech-icon.postgres { color: #336791; }
 .tech-icon.tableau { color: #1f77b4; }
+.tech-icon.wordpress { color: #21759b; }
+.tech-icon.openai { color: #10a37f; }
+.tech-icon.sqlite { color: #003b57; }
 
 /* Pagination Styles */
 .pagination {
@@ -332,9 +334,124 @@
     opacity: 0.8;
 }
 
- .panel-title {
+.panel-title {
      font-family: 'Outfit', sans-serif;
      font-size: 3.2rem;
+     padding: 2rem 0;
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    min-width: 3.5rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+
+.filter-btn:hover::after {
+    transform: scaleX(1);
+}
+
+.filter-btn i,
+.filter-btn svg {
+    font-size: 1rem;
+}
+
+.openai-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
+.filter-btn[data-value="React"] i { color: #61dafb; }
+.filter-btn[data-value="JavaScript"] i { color: #f7df1e; }
+.filter-btn[data-value="PHP"] i { color: #777bb4; }
+.filter-btn[data-value="WordPress"] i { color: #21759b; }
+.filter-btn[data-value="SQL"] i { color: #f29111; }
+.filter-btn[data-value="D3.js"] i { color: #f9a03c; }
+
+.filter-btn:hover {
+    color: #fff;
+}
+
+.filter-btn.active {
+    color: #fff;
+}
+
+.filter-btn.active::after {
+    transform: scaleX(1);
+    background: #fff;
+}
+
+.filter-btn[data-type="tech"].active {
+    color: #fff;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: rgba(255, 255, 255, 0.2);
      font-weight: 700;
      margin-bottom: 2rem;
      letter-spacing: -1px;
@@ -349,6 +466,7 @@
      .panel-title {
          font-size: 2.5rem;
          margin-bottom: 1.5rem;
+         padding: 0rem;
      }
  }
 
@@ -463,7 +581,6 @@
      display: flex;
      flex-wrap: wrap;
      gap: 0.5rem;
-     margin-bottom: 1.5rem;
  }
 
  .tech-tag {
