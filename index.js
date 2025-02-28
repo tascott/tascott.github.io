@@ -32,7 +32,16 @@ function showPanel(index) {
 
 // Pagination variables
 let currentPage = 1;
-const projectsPerPage = 4;
+let projectsPerPage = window.innerWidth <= 768 ? 2 : 4;
+
+// Update projects per page on resize
+window.addEventListener('resize', () => {
+    const newProjectsPerPage = window.innerWidth <= 768 ? 2 : 4;
+    if (newProjectsPerPage !== projectsPerPage) {
+        projectsPerPage = newProjectsPerPage;
+        updatePagination();
+    }
+});
 
 // Update pagination display
 function updatePagination() {
@@ -40,8 +49,6 @@ function updatePagination() {
     const projectCards = Array.from(document.querySelectorAll('.project-card')).filter(card => 
         getComputedStyle(card).display !== 'none'
     );
-
-    console.log('Visible project cards:', projectCards.length);
     
     const totalPages = Math.ceil(projectCards.length / projectsPerPage);
     
@@ -62,8 +69,6 @@ function updatePagination() {
         const shouldShow = index >= (currentPage - 1) * projectsPerPage && index < currentPage * projectsPerPage;
         card.style.display = shouldShow ? 'block' : 'none';
     });
-    
-    console.log(`Current page: ${currentPage}, Total pages: ${totalPages}, Visible cards: ${projectCards.length}`);
 }
 
 // Get visible cards for pagination
@@ -93,8 +98,6 @@ function updatePagination() {
         const shouldShow = index >= (currentPage - 1) * projectsPerPage && index < currentPage * projectsPerPage;
         card.style.display = shouldShow ? 'block' : 'none';
     });
-    
-    console.log(`Page ${currentPage}/${totalPages} - Showing cards ${(currentPage-1)*projectsPerPage + 1} to ${Math.min(currentPage*projectsPerPage, availableCards.length)} of ${availableCards.length}`);
 }
 
 // Project filtering function
@@ -184,13 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add pagination button event listeners
     document.getElementById('prev-page').addEventListener('click', () => {
-        console.log('Previous clicked');
         currentPage--;
         updatePagination();
     });
     
     document.getElementById('next-page').addEventListener('click', () => {
-        console.log('Next clicked');
         currentPage++;
         updatePagination();
     });

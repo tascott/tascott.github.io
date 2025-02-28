@@ -268,7 +268,15 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    margin-top: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .pagination {
+        margin: 2rem 0 4rem;
+    }
 }
 
 .pagination-btn {
@@ -394,7 +402,6 @@
          grid-template-columns: 1fr;
          gap: 1.5rem;
          max-height: none;
-         padding-bottom: 4rem;
      }
  }
 
