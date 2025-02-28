@@ -253,6 +253,7 @@
 .tech-icon.js { color: #f7df1e; }
 .tech-icon.typescript { color: #3178c6; }
 .tech-icon.react { color: #61dafb; }
+.tech-icon.nextjs { color: #000000; }
 .tech-icon.html { color: #e34f26; }
 .tech-icon.css { color: #2965f1; }
 .tech-icon.node { color: #339933; }
@@ -262,6 +263,17 @@
 .tech-icon.tableau { color: #1f77b4; }
 .tech-icon.wordpress { color: #21759b; }
 .tech-icon.openai { color: #10a37f; }
+
+.filter-btn i,
+.filter-btn img {
+    margin-right: 0rem;
+}
+
+.filter-btn img.tech-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
 .tech-icon.sqlite { color: #003b57; }
 
 /* Pagination Styles */
@@ -328,10 +340,14 @@
     font-size: 0.75rem;
     opacity: 0;
     transition: all 0.3s ease;
+    background-color: #777bb4;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
 }
 
 .tech-icon:hover::after {
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .panel-title {
@@ -351,6 +367,10 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.filter-group.tech .filter-btn {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .filter-label {
@@ -412,10 +432,15 @@
 
 .filter-btn[data-value="React"] i { color: #61dafb; }
 .filter-btn[data-value="JavaScript"] i { color: #f7df1e; }
-.filter-btn[data-value="PHP"] i { color: #777bb4; }
+.filter-btn[data-value="TypeScript"] i { color: #3178c6; }
+.filter-btn[data-value="Next.js"] img { filter: invert(1); }
+.filter-btn[data-value="Node.js"] i { color: #339933; }
+.filter-btn[data-value="Python"] i { color: #3776ab; }
 .filter-btn[data-value="WordPress"] i { color: #21759b; }
-.filter-btn[data-value="SQL"] i { color: #f29111; }
-.filter-btn[data-value="D3.js"] i { color: #f9a03c; }
+.filter-btn[data-value="OpenAI"] img { filter: invert(1); }
+.filter-btn[data-value="Supabase"] img { filter: invert(1); }
+.filter-btn[data-value="PostgreSQL"] i { color: #336791; }
+.filter-btn[data-value="SQLite"] i { color: #3b5992; }
 
 .filter-btn:hover {
     color: #fff;
@@ -450,11 +475,33 @@
     transition: all 0.3s ease;
 }
 
-.tech-tag:hover {
-    background: rgba(255, 255, 255, 0.2);
-     font-weight: 700;
-     margin-bottom: 2rem;
-     letter-spacing: -1px;
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+.page-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f0f0f0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
      background: linear-gradient(90deg, #f0f0f0, #8e8e8e);
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;
@@ -499,7 +546,7 @@
      opacity: 0.5;
      cursor: pointer;
      transition: all 0.3s ease;
-     padding: 0.5rem 0;
+     padding: 0.5rem;
  }
 
  .filter-btn.active {

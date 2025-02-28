@@ -71,8 +71,7 @@ class ProjectModal {
         this.modalLinks.innerHTML = Object.entries(projectData.links)
             .map(([text, url]) => `
                 <a href="${url}" class="modal-link" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-${text === 'View Project' ? 'external-link-alt' : 'github'}"></i>
-                    ${text}
+                    ${text} <i class="fas fa-external-link-alt"></i>
                 </a>
             `)
             .join('');
