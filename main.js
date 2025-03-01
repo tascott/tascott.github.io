@@ -12,6 +12,7 @@ let projectsPerPage = window.innerWidth <= 768 ? 2 : 4;
 let currentPanelIndex = 0;
 let scrollThrottle = false;
 const totalPanels = 3;
+let projectModal;
 
 // ===== UI Update Functions =====
 function updateButtonState(button,isActive) {
@@ -96,7 +97,6 @@ function renderProjects() {
     const currentProjects = filteredProjects.slice(startIndex,endIndex);
 
     // Render current page's projects
-    const modal = new ProjectModal();
     currentProjects.forEach(([_,project]) => {
         const card = document.createElement('div');
         card.className = `project-card${project.wip ? ' wip' : ''}`;
@@ -112,7 +112,7 @@ function renderProjects() {
                 </div>
             </div>
         `;
-        card.addEventListener('click',() => modal.open(project));
+        card.addEventListener('click',() => projectModal.open(project));
         projectsContainer.appendChild(card);
     });
 
@@ -167,6 +167,9 @@ function handleFilterClick(e) {
 
 // ===== Event Listeners =====
 document.addEventListener('DOMContentLoaded',() => {
+    // Create modal instance once
+    projectModal = new ProjectModal();
+
     // Initialize panel navigation
     document.querySelectorAll('[data-panel]').forEach(element => {
         element.addEventListener('click',() => {
