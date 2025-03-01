@@ -597,19 +597,22 @@
 
 .filter-btn {
     background: none;
-    border: none;
+    border: 1px solid transparent;
     color: #f0f0f0;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     opacity: 0.5;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
 }
 
- .filter-btn.active {
-     opacity: 1;
- }
+.filter-btn.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
  .projects-grid {
      display: grid;

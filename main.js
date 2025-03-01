@@ -7,6 +7,15 @@ const activeFilters = {
     tech: []
 };
 
+// Function to update button active state
+const updateButtonState = (button, isActive) => {
+    if (isActive) {
+        button.classList.add('active');
+    } else {
+        button.classList.remove('active');
+    }
+};
+
 // Initialize modal and projects when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Handle tech select dropdown
@@ -141,14 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const type = btn.getAttribute('data-type');
             const value = btn.getAttribute('data-value');
 
-            // Toggle active state
-            btn.classList.toggle('active');
-
             // Update filters
-            if (btn.classList.contains('active')) {
-                activeFilters[type].push(value);
+            const filterArray = activeFilters[type];
+            const valueIndex = filterArray.indexOf(value);
+            
+            if (valueIndex === -1) {
+                filterArray.push(value);
+                updateButtonState(btn, true);
             } else {
-                activeFilters[type] = activeFilters[type].filter(v => v !== value);
+                filterArray.splice(valueIndex, 1);
+                updateButtonState(btn, false);
             }
 
             // Re-render projects
