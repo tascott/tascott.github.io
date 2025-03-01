@@ -21,6 +21,13 @@ class ProjectModal {
                     <div class="modal-links"></div>
                 </div>
             </div>
+
+            <dialog id="imageDialog" class="image-dialog">
+                <button class="dialog-close" aria-label="Close dialog">
+                    <i class="fas fa-times"></i>
+                </button>
+                <img src="" alt="" />
+            </dialog>
         `;
 
         // Add modal to body
@@ -41,12 +48,25 @@ class ProjectModal {
             if(e.target === this.modal || e.target.closest('.modal-close')) {
                 this.close();
             }
+
+            // Handle thumbnail clicks using event delegation
+            const thumbnail = e.target.closest('.thumbnail');
+            if (thumbnail) {
+                const image = thumbnail.dataset.image;
+                const title = thumbnail.dataset.title;
+                this.showFullImage(image, title);
+            }
         });
 
         // Close on escape key
         document.addEventListener('keydown',(e) => {
-            if(e.key === 'Escape' && this.modal.classList.contains('active')) {
-                this.close();
+            if(e.key === 'Escape') {
+                if (this.modal.classList.contains('active')) {
+                    this.close();
+                }
+                if (this.imageDialog && this.imageDialog.open) {
+                    this.clearDialog();
+                }
             }
         });
 
@@ -57,11 +77,33 @@ class ProjectModal {
                 e.stopPropagation();
             }
         },{passive: true});
+
+        // Setup image dialog
+        this.imageDialog = document.getElementById('imageDialog');
+        this.imageDialog.querySelector('.dialog-close').addEventListener('click', () => {
+            this.clearDialog();
+        });
     }
 
     open(projectData) {
-        if(projectData.image) {
-            this.modalImage.innerHTML = `<img src="images/${projectData.image}" alt="${projectData.title}" />`;
+        if(projectData.images && projectData.images.length > 0) {
+            const thumbnailGridHTML = `
+                <p style="color: #888; font-size: 0.9rem; margin-bottom: 1rem;">
+                    <i class="fas fa-search-plus"></i> Click images to enlarge
+                </p>
+                <div class="thumbnail-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                    ${projectData.images.map((image, index) => `
+                        <div class="thumbnail" data-image="images/${image}" data-title="${projectData.title} - Image ${index + 1}"
+                             style="position: relative; padding-bottom: 100%; border-radius: 4px; overflow: hidden; cursor: zoom-in;">
+                            <img src="images/${image}" 
+                                alt="${projectData.title} - Image ${index + 1}" 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            this.modalImage.innerHTML = thumbnailGridHTML;
             this.modalImage.style.display = 'block';
         } else {
             this.modalImage.innerHTML = '';
@@ -94,9 +136,26 @@ class ProjectModal {
         document.body.style.overflow = 'hidden';
     }
 
+    showFullImage(src, alt) {
+        const dialogImg = this.imageDialog.querySelector('img');
+        dialogImg.src = src;
+        dialogImg.alt = alt;
+        this.imageDialog.showModal();
+    }
+
+    clearDialog() {
+        const dialogImg = this.imageDialog.querySelector('img');
+        dialogImg.src = '';
+        dialogImg.alt = '';
+        this.imageDialog.close();
+    }
+
     close() {
         this.modal.classList.remove('active');
         document.body.style.overflow = '';
+        if (this.imageDialog && this.imageDialog.open) {
+            this.clearDialog();
+        }
     }
 }
 

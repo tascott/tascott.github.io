@@ -8,7 +8,7 @@ const activeFilters = {
 };
 
 let currentPage = 1;
-let projectsPerPage = window.innerWidth <= 768 ? 2 : 4;
+let projectsPerPage = (window.innerWidth <= 768 || window.innerHeight <= 800) ? 2 : 4;
 let currentPanelIndex = 0;
 let scrollThrottle = false;
 const totalPanels = 3;
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded',() => {
 
 // Handle window resize for responsive pagination
 window.addEventListener('resize',() => {
-    const newProjectsPerPage = window.innerWidth <= 768 ? 2 : 4;
+    const newProjectsPerPage = (window.innerWidth <= 768 || window.innerHeight <= 800) ? 2 : 4;
     if(newProjectsPerPage !== projectsPerPage) {
         projectsPerPage = newProjectsPerPage;
         renderProjects();
