@@ -65,6 +65,27 @@ function renderProjects() {
 
     console.log('Filtered projects count:',filteredProjects.length);
 
+    // Show no results message if no projects match
+    if(filteredProjects.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.innerHTML = `
+            <p>No projects match the selected filters.</p>
+            <p class="filters-used">
+                Category: ${activeFilters.category}
+                ${activeFilters.tech.size > 0 ?
+                `<br>Technologies: ${Array.from(activeFilters.tech).join(', ')}`
+                : ''}
+            </p>
+        `;
+        projectsContainer.appendChild(noResults);
+
+        // Hide pagination when no results
+        const paginationElement = document.querySelector('.pagination');
+        paginationElement.style.display = 'none';
+        return;
+    }
+
     // Calculate pagination
     const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     currentPage = Math.max(1,Math.min(currentPage,totalPages));
@@ -78,10 +99,13 @@ function renderProjects() {
     const modal = new ProjectModal();
     currentProjects.forEach(([_,project]) => {
         const card = document.createElement('div');
-        card.className = 'project-card';
+        card.className = `project-card${project.wip ? ' wip' : ''}`;
         card.innerHTML = `
             <div class="project-content">
-                <h3 class="project-title">${project.title}</h3>
+                <div class="project-header">
+                    <h3 class="project-title">${project.title}</h3>
+                    ${project.wip ? '<span class="wip-badge">Work in Progress</span>' : ''}
+                </div>
                 <p class="project-desc">${project.tagline || project.description}</p>
                 <div class="project-tech">
                     ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
