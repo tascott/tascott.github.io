@@ -1,172 +1,237 @@
 import ProjectModal from './modal.js';
-import { projects } from './projects.js';
+import {projects} from './projects.js';
 
-// Initialize filter state
+// ===== State Management =====
 const activeFilters = {
-    category: [],
-    tech: []
+    category: 'all',
+    tech: new Set()
 };
 
-// Function to update button active state
-const updateButtonState = (button, isActive) => {
-    if (isActive) {
+let currentPage = 1;
+let projectsPerPage = window.innerWidth <= 768 ? 2 : 4;
+let currentPanelIndex = 0;
+let scrollThrottle = false;
+const totalPanels = 3;
+
+// ===== UI Update Functions =====
+function updateButtonState(button,isActive) {
+    if(isActive) {
         button.classList.add('active');
     } else {
         button.classList.remove('active');
     }
-};
+}
 
-// Initialize modal and projects when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle tech select dropdown
-    const techSelect = document.querySelector('.tech-select');
-    if (techSelect) {
-        techSelect.addEventListener('change', (e) => {
-            // Clear existing tech filters
-            activeFilters.tech = [];
-            
-            // Add selected options to filters
-            Array.from(e.target.selectedOptions).forEach(option => {
-                activeFilters.tech.push(option.value);
-            });
-            
-            renderProjects();
-        });
-    }
-    const modal = new ProjectModal();
-    const projectsContainer = document.getElementById('projects-container');
+function showPanel(index) {
+    const panels = document.querySelectorAll('.panel');
+    panels.forEach(panel => panel.classList.remove('active'));
+    document.getElementById('panel-' + index).classList.add('active');
 
-    // Function to check if a project matches the active filters
-    const matchesFilters = (project) => {
-        // If no filters are active, show all projects
-        if (activeFilters.category.length === 0 && activeFilters.tech.length === 0) {
-            return true;
-        }
-
-        // Check type filters
-        if (activeFilters.category.length > 0 && !activeFilters.category.includes(project.type)) {
-            return false;
-        }
-
-        // Check tech filters
-        if (activeFilters.tech.length > 0 && !project.tech.some(tech => activeFilters.tech.includes(tech))) {
-            return false;
-        }
-
-        return true;
-    };
-
-    // Pagination state
-    let currentPage = 1;
-    
-    // Function to get projects per page based on screen size
-    const getProjectsPerPage = () => {
-        if (window.innerWidth >= 1920) return 6; // Very large screens
-        if (window.innerWidth >= 1440) return 4; // Standard desktop/laptop
-        if (window.innerWidth >= 768) return 4;  // Tablet/small laptop
-        return 2; // Mobile
-    };
-    
-    let projectsPerPage = getProjectsPerPage();
-    
-    // Update projects per page when window resizes
-    window.addEventListener('resize', () => {
-        const newProjectsPerPage = getProjectsPerPage();
-        if (newProjectsPerPage !== projectsPerPage) {
-            projectsPerPage = newProjectsPerPage;
-            renderProjects();
-        }
+    // Update navigation dots and indicators
+    document.querySelectorAll('.nav-dot').forEach((dot,i) => {
+        dot.classList.toggle('active',i === index);
+    });
+    document.querySelectorAll('.panel-indicator').forEach((indicator,i) => {
+        indicator.classList.toggle('active',i === index);
     });
 
-    // Function to render paginated project cards
-    const renderProjects = () => {
-        projectsContainer.innerHTML = '';
-        
-        // Filter projects first
-        const filteredProjects = Object.entries(projects).filter(([_, project]) => matchesFilters(project));
-        
-        // Calculate total pages
-        const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
-        
-        // Ensure current page is within bounds
-        currentPage = Math.max(1, Math.min(currentPage, totalPages));
-        
-        // Get current page's projects
-        const startIndex = (currentPage - 1) * projectsPerPage;
-        const endIndex = startIndex + projectsPerPage;
-        const currentProjects = filteredProjects.slice(startIndex, endIndex);
-        
-        // Render current page's projects
-        currentProjects.forEach(([id, project]) => {
-            const card = document.createElement('div');
-            card.className = 'project-card';
-            card.setAttribute('data-category', project.type);
-            card.setAttribute('data-project-id', id);
+    currentPanelIndex = index;
+}
 
-            card.innerHTML = `
-                <div class="project-content">
-                    <h3 class="project-title">${project.title}</h3>
-                    <p class="project-desc">${project.tagline || project.description}</p>
-                    <div class="project-tech">
-                        ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                    </div>
+function renderProjects() {
+    console.log('Rendering projects with filters:',{
+        category: activeFilters.category,
+        tech: Array.from(activeFilters.tech)
+    });
+
+    const projectsContainer = document.getElementById('projects-container');
+    if(!projectsContainer) {
+        console.error('Projects container not found!');
+        return;
+    }
+
+    projectsContainer.innerHTML = '';
+
+    // Filter projects
+    const filteredProjects = Object.entries(projects).filter(([_,project]) => {
+        const categoryMatch = activeFilters.category === 'all' ||
+            project.type === activeFilters.category;
+        const techMatch = activeFilters.tech.size === 0 ||
+            Array.from(activeFilters.tech).every(tech =>
+                project.tech.includes(tech)
+            );
+        return categoryMatch && techMatch;
+    });
+
+    console.log('Filtered projects count:',filteredProjects.length);
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+    currentPage = Math.max(1,Math.min(currentPage,totalPages));
+
+    // Get current page's projects
+    const startIndex = (currentPage - 1) * projectsPerPage;
+    const endIndex = startIndex + projectsPerPage;
+    const currentProjects = filteredProjects.slice(startIndex,endIndex);
+
+    // Render current page's projects
+    const modal = new ProjectModal();
+    currentProjects.forEach(([_,project]) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <div class="project-content">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-desc">${project.tagline || project.description}</p>
+                <div class="project-tech">
+                    ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                 </div>
-            `;
+            </div>
+        `;
+        card.addEventListener('click',() => modal.open(project));
+        projectsContainer.appendChild(card);
+    });
 
-            // Add click handler
-            card.addEventListener('click', () => {
-                if (project) {
-                    modal.open(project);
-                }
-            });
-            
-            // Add hover effect
-            card.style.cursor = 'pointer';
-
-            projectsContainer.appendChild(card);
-        });
-
-        // Update pagination UI
+    // Update pagination UI
+    const paginationElement = document.querySelector('.pagination');
+    if(filteredProjects.length > projectsPerPage) {
+        paginationElement.style.display = 'flex';
         document.querySelector('.current-page').textContent = currentPage;
         document.querySelector('.total-pages').textContent = totalPages;
         document.getElementById('prev-page').disabled = currentPage <= 1;
         document.getElementById('next-page').disabled = currentPage >= totalPages;
-    };
+    } else {
+        paginationElement.style.display = 'none';
+    }
 
-    // Add click handlers to pagination buttons
-    document.getElementById('prev-page').addEventListener('click', () => {
-        currentPage--;
-        renderProjects();
+    // Update filter button states
+    document.querySelectorAll('[data-type="tech"]').forEach(btn => {
+        const btnValue = btn.getAttribute('data-value');
+        updateButtonState(btn,activeFilters.tech.has(btnValue));
     });
+}
 
-    document.getElementById('next-page').addEventListener('click', () => {
-        currentPage++;
-        renderProjects();
-    });
+// ===== Event Handlers =====
+function handleFilterClick(e) {
+    if(!e.target.classList.contains('filter-btn')) return;
 
-    // Add click handlers to filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const type = btn.getAttribute('data-type');
-            const value = btn.getAttribute('data-value');
+    const type = e.target.getAttribute('data-type');
+    const value = e.target.getAttribute('data-value');
 
-            // Update filters
-            const filterArray = activeFilters[type];
-            const valueIndex = filterArray.indexOf(value);
-            
-            if (valueIndex === -1) {
-                filterArray.push(value);
-                updateButtonState(btn, true);
-            } else {
-                filterArray.splice(valueIndex, 1);
-                updateButtonState(btn, false);
-            }
+    if(!type || !value) return;
 
-            // Re-render projects
-            renderProjects();
+    if(type === 'category') {
+        document.querySelectorAll('[data-type="category"]').forEach(btn => {
+            updateButtonState(btn,false);
+        });
+        updateButtonState(e.target,true);
+        activeFilters.category = value;
+    } else if(type === 'tech') {
+        const isCurrentlyActive = activeFilters.tech.has(value);
+        if(isCurrentlyActive) {
+            activeFilters.tech.delete(value);
+            updateButtonState(e.target,false);
+        } else {
+            activeFilters.tech.add(value);
+            updateButtonState(e.target,true);
+        }
+    }
+
+    currentPage = 1;
+    renderProjects();
+}
+
+// ===== Event Listeners =====
+document.addEventListener('DOMContentLoaded',() => {
+    // Initialize panel navigation
+    document.querySelectorAll('[data-panel]').forEach(element => {
+        element.addEventListener('click',() => {
+            const panelIndex = parseInt(element.getAttribute('data-panel'));
+            showPanel(panelIndex);
         });
     });
+
+    // Initialize pagination handlers
+    document.getElementById('prev-page').addEventListener('click',() => {
+        if(currentPage > 1) {
+            currentPage--;
+            renderProjects();
+        }
+    });
+
+    document.getElementById('next-page').addEventListener('click',() => {
+        const totalPages = Math.ceil(
+            Object.entries(projects).filter(([_,project]) => {
+                const categoryMatch = activeFilters.category === 'all' ||
+                    project.type === activeFilters.category;
+                const techMatch = activeFilters.tech.size === 0 ||
+                    Array.from(activeFilters.tech).every(tech =>
+                        project.tech.includes(tech)
+                    );
+                return categoryMatch && techMatch;
+            }).length / projectsPerPage
+        );
+        if(currentPage < totalPages) {
+            currentPage++;
+            renderProjects();
+        }
+    });
+
+    // Initialize background switcher
+    document.querySelectorAll('.bg-btn').forEach(button => {
+        button.addEventListener('click',() => {
+            const bgIndex = parseInt(button.getAttribute('data-bg-index'));
+            document.body.className = '';
+            document.querySelectorAll('.bg-btn').forEach(btn =>
+                btn.classList.remove('active')
+            );
+
+            if(bgIndex === 5) {
+                document.body.classList.add('bg-code');
+            } else {
+                document.body.classList.add('bg-style-' + bgIndex);
+            }
+            button.classList.add('active');
+        });
+    });
+
+    // Add filter click handler
+    document.addEventListener('click',handleFilterClick);
 
     // Initial render
     renderProjects();
 });
+
+// Handle window resize for responsive pagination
+window.addEventListener('resize',() => {
+    const newProjectsPerPage = window.innerWidth <= 768 ? 2 : 4;
+    if(newProjectsPerPage !== projectsPerPage) {
+        projectsPerPage = newProjectsPerPage;
+        renderProjects();
+    }
+});
+
+// Handle scroll navigation
+window.addEventListener('wheel',(e) => {
+    if(scrollThrottle) return;
+
+    scrollThrottle = true;
+    setTimeout(() => scrollThrottle = false,800);
+
+    if(e.deltaY > 0) {
+        showPanel(Math.min(2,currentPanelIndex + 1));
+    } else {
+        showPanel(Math.max(0,currentPanelIndex - 1));
+    }
+},{passive: true});
+
+// Handle keyboard navigation
+document.addEventListener('keydown',(e) => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        showPanel(Math.min(2,currentPanelIndex + 1));
+    } else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        showPanel(Math.max(0,currentPanelIndex - 1));
+    }
+});
+
+export {showPanel};
