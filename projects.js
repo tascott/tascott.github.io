@@ -96,7 +96,7 @@ export const projects = {
         description: 'Simple client website for a doggy day care company. I used WordPress to create the site and then added some custom CSS and a full-wide video hero.',
         type: 'client',
         wip: false,
-        images: ['wotws1.png','wotws2.png'],
+        images: ['wotws.png','wotws2.png'],
         tech: ['WordPress','HTML','CSS'],
         links: {
             'Live Site': 'https://awalkonthewildside.co.uk/'
